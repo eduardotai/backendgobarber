@@ -1,6 +1,5 @@
 import { isThisISOWeek } from 'date-fns'
 import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn} from 'typeorm'
-import user from './user'
 import User from './user'
 
 
@@ -10,17 +9,14 @@ class Appointment {
     id: string
 
     @Column()
-    provider: string
+    provider_id: string
 
     @ManyToOne(() => User)
-    @JoinColumn({name: 'provider'})
-    provider_id: User
+    @JoinColumn({name: 'provider_id'})
+    provider: User
 
     @Column('timestamp with time zone')
     date: Date
-
-    @CreateDateColumn()
-    created_at: Date
 
     @UpdateDateColumn()
     updated_at: Date

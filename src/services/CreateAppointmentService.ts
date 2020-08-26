@@ -1,5 +1,5 @@
 import Appointment from '../models/appointments'
-import AppointmentRepository from '../repositories/AoointmentsRepository'
+import AppointmentRepository from '../repositories/AppointmentsRepository'
 import { startOfHour } from 'date-fns'
 import { getCustomRepository } from 'typeorm'
 
@@ -25,7 +25,6 @@ class CreateAppointmentService {
         }
     
         const appointment = appointmentsRepository.create({
-            provider, 
             date: appointmentDate,
         })
 
