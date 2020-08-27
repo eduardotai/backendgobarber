@@ -16,7 +16,7 @@ const upload = multer(uploadConfig)
 
 usersRouter.post('/', async (request, response) => {
 
-try {
+
     const { name, email, password } = request.body
 
     const createUser = new CreateUserService()
@@ -30,15 +30,13 @@ try {
     
 
     return response.json(user)
-} catch(err) {
-    return response.status(400).json({error: err.message})
 }
-})
+)
 
 usersRouter.patch('/avatar', ensureAuthenticated,upload.single('avatar'), async(request, response) => {
     console.log(request.file)
 
-    try{
+    
         
         const updateUserAvatar = new UpdateUserAvatarService()
 
@@ -48,10 +46,6 @@ usersRouter.patch('/avatar', ensureAuthenticated,upload.single('avatar'), async(
         })
 
         return response.json(user)
-
-    }catch(err) {
-        return response.status(400).json({error: err.message})
-    }
 } )
 
 export default usersRouter
