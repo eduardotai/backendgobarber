@@ -1,10 +1,13 @@
 import { UpdateDateColumn } from "typeorm";
 
-import { getRepository } from 'typeorm'
-import User from '../models/user'
+import User from '../../../modules/users/infra/typeorm/entities/user'
 import path from 'path'
-import uploadConfig from '../config/upload'
-import AppError from  '../errors/AppError'
+import uploadConfig from '../../../config/upload'
+import AppError from  '../../../shared/errors/AppError'
+
+import IUsersRepository from '../repositories/IUsersRepository'
+import {  injectable, inject } from 'tsyringe'
+
 
 
 import fs from 'fs'
@@ -14,12 +17,20 @@ interface Request {
     avatarFileName: string
 }
 
+@injectable()
 class UpdateUserAvatarService {
+
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository
+    ) {
+        
+    }
+
     public async execute({ user_id, avatarFileName}: Request): Promise<User>{
 
-        const usersRepository = getRepository(User)
         
-        const user = await usersRepository.findOne(user_id)
+        const user = await this.usersRepository.findById(user_id)
 
         console.log(user)
 
@@ -39,7 +50,7 @@ class UpdateUserAvatarService {
 
         user.avatar = avatarFileName
 
-        await usersRepository.save(user)
+        await this.usersRepository.save(user)
 
         return user
 

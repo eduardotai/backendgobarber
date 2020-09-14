@@ -1,6 +1,6 @@
 import { isThisISOWeek } from 'date-fns'
 import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn} from 'typeorm'
-import User from './user'
+import User from '../../../../users/infra/typeorm/entities/user'
 
 
 @Entity('appointments')
